@@ -24,6 +24,16 @@ CREATE TABLE Klubinfo (
 
 --Indsætter data i tabellen "Klubinfo"
 INSERT INTO Klubinfo VALUES ('Mark','Pedersen','Hanborienhule','666','5000','1','18-05-2020','Fedøse','1845','Andeninfokommerher')
+
 INSERT INTO Klubinfo VALUES ('Mads', 'Finseth','Mars','112','5200','2','18-05-2020','3hjuletcykel','1980','Andeninfokommerher')
 
+INSERT INTO Klubinfo VALUES ('Jonas', 'Henriksen','Afrika','114','5300','3','18-05-2020','Elefant','1990','Andeninfokommerher')
+
 SELECT * FROM Klubinfo;
+
+
+
+
+
+
+
