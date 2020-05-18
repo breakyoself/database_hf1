@@ -56,7 +56,7 @@ Go
 --En SP som tæller hvor mange medlemmer vi har
 Create procedure Antal
 AS
-Begin
+Begin  --Herfra køre du til og med rowcount. I result ser man 2 kasser, hvor den første består af medlemmer og anden kasse tæller hvor mange medlemmer der er. 
 
     Select * from Klubinfo 
 
