@@ -33,9 +33,37 @@ SELECT * FROM Klubinfo;
 
 
 
+--Opretter en Stored procedure til at fortælle hvor mange medlemmer klubben har
+Create procedure Medlemmer
+
+@Fornavn varchar(20)
+@Efternavn varchar(20)
+@Adresse varchar(20)
+@Telefonnummer Int(20)
+@Postnummer Int(20)
+@Indmeldingsdato varchar(20)
+@Biltype varchar(20)
+@Bilensaargang int(20)
+@Andeninfo varchar (20)
+
+AS
+
+INSERT INTO Klubinfo (Fornavn, Efternavn, Adresse, Telefonnummer, Postnummer, Indmeldingsdato, Biltype, Bilensaargang, Andeninfo)
+
+Values (@Fornavn, @Efternavn, @Adresse, @Telefonnummer, @Postnummer, @Indmeldingsdato, @Biltype, @Bilensaargang, @Andeninfo)
+
+Go
 
 
+--Opretter procedure til at finde et medlem ved hjælp af navn
 
+create procedure Find_medlem
 
+@Fornavn varchar (20)
 
+AS
 
+select * from Klubinfo
+Where  Fornavn =  @fornavn
+
+go
