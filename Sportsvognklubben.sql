@@ -1,4 +1,7 @@
---HEJ <3
+/*-----------------------------------------------------------------------------------------------------------------------------
+Opgave A 
+------------------------------------------------------------------------------------------------------------------------------*/
+
 USE master
 
 --Først opretter vi en database
@@ -23,21 +26,17 @@ CREATE TABLE Klubinfo (
 
 --Indsætter data i tabellen "Klubinfo"
 INSERT INTO Klubinfo VALUES ('Mark','Pedersen','Hanborienhule','666','5000','18-05-2020','Fedøse','1845','Andeninfokommerher')
+INSERT INTO Klubinfo VALUES ('Mads','Finseth','Mars','112','5200','18-05-2020','3hjuletcykel','1980','Andeninfokommerher')
+INSERT INTO Klubinfo VALUES ('Jonas','Henriksen','Afrika','114','5300','18-05-2020','Elefant','1990','Andeninfokommerher')
 
-INSERT INTO Klubinfo VALUES ('Mads', 'Finseth','Mars','112','5200','18-05-2020','3hjuletcykel','1980','Andeninfokommerher')
-
-INSERT INTO Klubinfo VALUES ('Jonas', 'Henriksen','Afrika','114','5300','18-05-2020','Elefant','1990','Andeninfokommerher')
-
+--Se tabel indhold
 SELECT * FROM Klubinfo;
-
-
 
 /*-----------------------------------------------------------------------------------------------------------------------------
 Opgave B
 ------------------------------------------------------------------------------------------------------------------------------*/
 
-
---Opretter en Stored procedure til at ændre data i tabel---------------------------------------------------------------------------------------------------
+--Opretter en Stored procedure til at ændre data i tabel
 Create procedure Medlemmer
 
 @Fornavn varchar(20),
@@ -49,34 +48,38 @@ Create procedure Medlemmer
 @Biltype varchar(20),
 @Bilensaargang int,
 @Andeninfo varchar (20)
-
 as
-
 INSERT INTO Klubinfo (Fornavn, Efternavn, Adresse, Telefonnummer, Postnummer, Indmeldingsdato, Biltype, Bilensaargang, Andeninfo)
-
 Values (@Fornavn, @Efternavn, @Adresse, @Telefonnummer, @Postnummer, @Indmeldingsdato, @Biltype, @Bilensaargang, @Andeninfo)
-
 Go
+
+--En SP som tæller hvor mange medlemmer vi har
+Create procedure Antal
+AS
+Begin
+
+    Select * from Klubinfo 
+
+End
+
+Exec Antal
+
+Select @@rowcount
+
 
 --Her executer vi det nye medlem
 exec Medlemmer 'brian', 'Briansen', 'Odense', '200', '5000', '18-5-2020', 'knallert', '2000', 'Andeninfokommerher'
 
-
---Opretter procedure til at finde et medlem ved hjælp af navn------------------------------------------------------------------------------------------------------------------------------------------
+--Opretter procedure til at finde et medlem ved hjælp af navn
 
 create procedure Find_medlem
-
 @Fornavn varchar (20)
-
 AS
-
 select * from Klubinfo
 Where  Fornavn =  @fornavn
-
 go
 
 exec Find_medlem 'Mads'
-
 
 /*-----------------------------------------------------------------------------------------------------------------------------
 Opgave F_a
