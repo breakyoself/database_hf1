@@ -15,7 +15,6 @@ CREATE TABLE Klubinfo (
 	Adresse varchar(55) NOT NULL,
 	Telefonnummer int NOT NULL,
 	Postnummer int NOT NULL,
-	Medlemsnummer int NOT NULL,
 	Indmeldingsdato varchar(55) NOT NULL,
 	Biltype varchar(55) NOT NULL,
 	Bilensaargang varchar(55) NOT NULL,
@@ -23,30 +22,35 @@ CREATE TABLE Klubinfo (
 );
 
 --Indsætter data i tabellen "Klubinfo"
-INSERT INTO Klubinfo VALUES ('Mark','Pedersen','Hanborienhule','666','5000','1','18-05-2020','Fedøse','1845','Andeninfokommerher')
+INSERT INTO Klubinfo VALUES ('Mark','Pedersen','Hanborienhule','666','5000','18-05-2020','Fedøse','1845','Andeninfokommerher')
 
-INSERT INTO Klubinfo VALUES ('Mads', 'Finseth','Mars','112','5200','2','18-05-2020','3hjuletcykel','1980','Andeninfokommerher')
+INSERT INTO Klubinfo VALUES ('Mads', 'Finseth','Mars','112','5200','18-05-2020','3hjuletcykel','1980','Andeninfokommerher')
 
-INSERT INTO Klubinfo VALUES ('Jonas', 'Henriksen','Afrika','114','5300','3','18-05-2020','Elefant','1990','Andeninfokommerher')
+INSERT INTO Klubinfo VALUES ('Jonas', 'Henriksen','Afrika','114','5300','18-05-2020','Elefant','1990','Andeninfokommerher')
 
 SELECT * FROM Klubinfo;
 
 
 
---Opretter en Stored procedure til at fortælle hvor mange medlemmer klubben har
+/*-----------------------------------------------------------------------------------------------------------------------------
+Opgave B
+------------------------------------------------------------------------------------------------------------------------------*/
+
+
+--Opretter en Stored procedure til at ændre data i tabel---------------------------------------------------------------------------------------------------
 Create procedure Medlemmer
 
-@Fornavn varchar(20)
-@Efternavn varchar(20)
-@Adresse varchar(20)
-@Telefonnummer Int(20)
-@Postnummer Int(20)
-@Indmeldingsdato varchar(20)
-@Biltype varchar(20)
-@Bilensaargang int(20)
+@Fornavn varchar(20),
+@Efternavn varchar(20),
+@Adresse varchar(20),
+@Telefonnummer Int,
+@Postnummer Int,
+@Indmeldingsdato varchar(20),
+@Biltype varchar(20),
+@Bilensaargang int,
 @Andeninfo varchar (20)
 
-AS
+as
 
 INSERT INTO Klubinfo (Fornavn, Efternavn, Adresse, Telefonnummer, Postnummer, Indmeldingsdato, Biltype, Bilensaargang, Andeninfo)
 
@@ -54,8 +58,11 @@ Values (@Fornavn, @Efternavn, @Adresse, @Telefonnummer, @Postnummer, @Indmelding
 
 Go
 
+--Her executer vi det nye medlem
+exec Medlemmer 'brian', 'Briansen', 'Odense', '200', '5000', '18-5-2020', 'knallert', '2000', 'Andeninfokommerher'
 
---Opretter procedure til at finde et medlem ved hjælp af navn
+
+--Opretter procedure til at finde et medlem ved hjælp af navn------------------------------------------------------------------------------------------------------------------------------------------
 
 create procedure Find_medlem
 
@@ -67,3 +74,62 @@ select * from Klubinfo
 Where  Fornavn =  @fornavn
 
 go
+
+exec Find_medlem 'Mads'
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------
+Opgave F_a
+------------------------------------------------------------------------------------------------------------------------------*/
+
+--CREATE DB BACKUP
+BACKUP DATABASE Sportsvognklub
+TO DISK = 'C:\Sportsvognklubben.bak';
+
+--RESTORE DB BACKUP
+USE master
+RESTORE DATABASE Sportsvognklub
+FROM DISK = 'C:\Sportsvognklubben.bak';
+
+--BACKUP DB PROCEDURE
+CREATE PROCEDURE BackupDB
+AS
+BACKUP DATABASE Sportsvognklub
+TO DISK = 'C:\Sportsvognklubben.bak';
+
+EXEC BackupDB;
+
+--RESTORE DB PROCEDURE
+CREATE PROCEDURE RestoreDB
+AS
+RESTORE DATABASE Sportsvognklub
+TO DISK = 'C:\Sportsvognklubben.bak';
+
+EXEC RestoreDB;
+
+/*-----------------------------------------------------------------------------------------------------------------------------
+Opgave F_b
+------------------------------------------------------------------------------------------------------------------------------*/
+
+--Slet database
+DROP DATABASE Sportsvognklub;
+--Slet tabel
+DROP TABLE Klubinfo;
+
+--Slet database procedure
+Create Procedure SletDB
+AS
+Drop database Sportsvognklub;
+
+EXEC SletDB;
+
+--Slet tabel procedure
+Create Procedure SletTabel
+AS
+Drop table Klubinfo;
+
+EXEC SletTabel;
+
+/*-----------------------------------------------------------------------------------------------------------------------------
+Opgave G
+------------------------------------------------------------------------------------------------------------------------------*/
